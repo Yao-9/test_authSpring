@@ -1,9 +1,10 @@
 package test_AuthSpring;
 
 import static org.junit.Assert.*;
-import SpringAuth.*;
 
-import java.util.ResourceBundle.Control;
+import java.io.IOException;
+
+import SpringAuth.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,14 +19,12 @@ public class Test_auth {
 	@Before
 	public void setUp() throws Exception {
 		this.c = new Controller();
-		accCode = "4/nNePJDTohSp0bCyL8n7a615P2BKwBOhJGiU4GTs3yOA.EvSoXE00ycEaXmXvfARQvtg2a9g9mAI";
+		accCode = "4/JtJDCzqNhQD5V228pb72IDxTZCVmH65Y56Kp__DNvo0.0nG5sKV3sq4XXmXvfARQvtjoshpImAI";
 		pkt = new AccessCodePacket(accCode, "123", "456");
 	}
 
 	@Test
-	public void test_getCredential() {
+	public void test_getCredential() throws IOException {
 		assertTrue(c.authCodeHandler(pkt).equals("Success"));
 	}
-
-
 }

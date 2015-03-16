@@ -1,30 +1,26 @@
 package SpringAuth;
 
+import java.io.IOException;
+
 import org.springframework.web.bind.annotation.*;
+
 import packet.AccessCodePacket;
+
 import com.google.api.client.auth.oauth2.Credential;
 
 @RestController
 public class Controller {
-
+	private GoogleDriveAPI gda = new GoogleDriveAPI();
+	
 	/* Receive the Token From User, Store it to HashTable */
 	@RequestMapping("/auth")
 	@ResponseBody
-	public String authCodeHandler(@RequestBody AccessCodePacket pkt) {
+	public String authCodeHandler(@RequestBody AccessCodePacket pkt) throws IOException {
 		String accCode = pkt.getAccessCode();
 		Credential cred = null;
-		try {
-			cred = GoogleDriveAPI.getCredentials(accCode, "");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (cred != null) {
-			System.out.print("Credential Success :) \n");
+		if(gda.getConfidentialByAccCode(accCode))
 			return "Success";
-		} else {
-			System.out.print("Credential Fail :( \n");
-			return "Fail";
-		}
+		else
+			return "Failure";
 	}
 }
